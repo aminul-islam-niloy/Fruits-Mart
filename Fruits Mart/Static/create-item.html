@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Item</title>
+</head>
+<body>
+    <h1>Create New Item</h1>
+    <form id="createForm" enctype="multipart/form-data">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <label for="price">Price:</label><br>
+        <input type="number" id="price" name="price"><br><br>
+
+        <label for="quantity">Quantity:</label><br>
+        <input type="number" id="quantity" name="quantity"><br><br>
+
+        <label for="image">Image:</label><br>
+        <input type="file" id="image" name="image"><br><br>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            var formData = new FormData();
+            formData.append("Name", document.getElementById("name").value);
+            formData.append("Description", document.getElementById("description").value);
+            formData.append("Price", document.getElementById("price").value);
+            formData.append("Quantity", document.getElementById("quantity").value);
+            formData.append("ImageUrl", document.getElementById("image").files[0]);
+
+            fetch('https://localhost:7246/api/items', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Item created successfully!');
+                    document.getElementById("createForm").reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to create item. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>
