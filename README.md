@@ -2,6 +2,8 @@
 
 Fruits Mart is a simple ASP.NET Core web API Project that provides information Form Managing Fruits Shop and providing CRUD operation.
 
+live link: https://aminulislamniloy.bsite.net/swagger/index.html
+
 ## Getting Started
 
 To get started with Project , follow these steps:
